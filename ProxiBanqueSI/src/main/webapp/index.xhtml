@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>Gestion Client</title>
+	
+</h:head>
+<h:body>
+
+	<p:dataTable value="#{mbClient.list}" var="liste">
+		<p:column headerText="Id">
+			<h:outputText value="#{liste.id}"/>
+		</p:column>
+
+		<p:column headerText="Nom">
+			#{liste.nom}
+		</p:column>
+
+		<p:column headerText="Prenom">
+			#{liste.prenom}
+		</p:column>
+
+		<p:column headerText="Telephone">
+			#{liste.telephone}
+		</p:column>
+	</p:dataTable>
+	
+	
+	<h:form>
+	<h:outputText>Nom</h:outputText>
+	<h:inputText value="#{mbClient.nom}" />
+	<br/>
+	<h:outputText>prenom</h:outputText>
+	<h:inputText value="#{mbClient.prenom}" />
+	<br/>
+	<h:outputText>telephone</h:outputText>
+	<h:inputText value="#{mbClient.telephone}" />
+	<br/>
+	<h:commandButton value="ajouter" action="#{mbClient.ajouterClient(mbClient.nom, mbClient.prenom, mbClient.telephone)}"/>
+	
+	</h:form>
+	
+	
+	
+</h:body>
+</html>
