@@ -14,7 +14,7 @@ public class ServiceClient implements IServiceClient {
 	@Autowired
 	private IDaoClient daoClient;
 	
-	@Override
+	
 	public List<Client> getAllClients() {
 		
 		return daoClient.getAllClients();
