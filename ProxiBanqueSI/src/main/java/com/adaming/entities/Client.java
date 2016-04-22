@@ -200,6 +200,14 @@ public class Client implements Serializable{
         return true;
     }
 
+	public Conseiller getConseiller() {
+		return conseiller;
+	}
+
+	public void setConseiller(Conseiller conseiller) {
+		this.conseiller = conseiller;
+	}
+
     
     
     
