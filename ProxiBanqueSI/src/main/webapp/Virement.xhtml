@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<title>Comptes</title>
+</h:head>
+
+<h:body>
+	<h:form>
+		<h3>Comptes courants</h3>
+		<p:dataTable value="#{mbCompte.listCC}" var="listeCC">
+			<p:column headerText="Id">
+				<p:commandLink id="link" update="@all"
+					actionListener="#{mbCompte.choisirCC(listeCC.id)}">
+					<h:outputText value="#{listeCC.id}" />
+				</p:commandLink>
+			</p:column>
+
+			<p:column headerText="Solde">
+			#{listeCC.solde}
+		</p:column>
+		</p:dataTable>
+		<h3>Comptes epargne</h3>
+		<p:dataTable value="#{mbCompte.listCE}" var="listeCE">
+			<p:column headerText="Id">
+				<p:commandLink id="link" update="@all"
+					actionListener="#{mbCompte.choisirCE(listeCE.id)}">
+					<h:outputText value="#{listeCE.id}" />
+				</p:commandLink>
+			</p:column>
+
+			<p:column headerText="Solde">
+			#{listeCE.solde}
+		</p:column>
+		</p:dataTable>
+		
+		<h:commandButton value="valider emetteur" action="#{mbCompte.validerEmetteur()}" />
+		<h:commandButton value="annuler emetteur" action="#{mbCompte.annulerEmetteur()}" />
+	</h:form>
+	<h:form>
+		<h4>Compte emetteur</h4>
+		<h:outputText value="#{mbCompte.typeEmetteur}" />
+		<br />
+		<h:outputText value="#{mbCompte.emetteurCC.id}"/>
+		<h:outputText value="#{mbCompte.emetteurCE.id}" />
+		<br />
+		<h:outputText value="#{mbCompte.emetteurCC.solde}"/>
+		<h:outputText value="#{mbCompte.emetteurCE.solde}" />
+		<br />
+		
+		<h4>Compte destinataire</h4>
+		<h:outputText value="#{mbCompte.typeDestinataire}" />
+		<br />
+		<h:outputText value="#{mbCompte.destinataireCC.id}"/>
+		<h:outputText value="#{mbCompte.destinataireCE.id}" />
+		<br />
+		<h:outputText value="#{mbCompte.destinataireCC.solde}"/>
+		<h:outputText value="#{mbCompte.destinataireCE.solde}" />
+		<br />
+		
+		<h:outputText>Montant du virement : </h:outputText>
+		<h:inputText value="#{mbCompte.montant}" />
+		
+		<h:commandButton value="effectuer le virement" action="#{mbCompte.effectuerVirement()}" />
+	</h:form>
+</h:body>
+</html>
