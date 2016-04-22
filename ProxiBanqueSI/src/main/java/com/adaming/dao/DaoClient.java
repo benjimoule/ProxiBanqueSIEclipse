@@ -37,20 +37,20 @@ public class DaoClient implements IDaoClient {
 
 
 	public void addClient(Client client) {
-		// TODO Auto-generated method stub
+		getSession().save(client);
 		
 	}
 
 
 
 	public void updateClient(Client client) {
-		// TODO Auto-generated method stub
+		getSession().update(client);
 		
 	}
 
 
 	public void deleteClient(int id) {
-		// TODO Auto-generated method stub
+		getSession().delete(getClientById(id));
 		
 	}
 

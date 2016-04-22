@@ -20,4 +20,31 @@ public class ServiceClient implements IServiceClient {
 		return daoClient.getAllClients();
 	}
 
+
+	@Override
+	public Client getClientById(int id) {
+		return daoClient.getClientById(id);
+	}
+
+
+	@Override
+	public void addClient(Client client) {
+		daoClient.addClient(client);
+		
+	}
+
+
+	@Override
+	public void updateClient(Client client) {
+		daoClient.updateClient(client);
+		
+	}
+
+
+	@Override
+	public void deleteClient(int id) {
+		daoClient.deleteClient(id);
+		
+	}
+
 }

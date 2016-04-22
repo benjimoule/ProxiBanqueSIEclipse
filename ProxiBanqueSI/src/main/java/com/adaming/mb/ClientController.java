@@ -12,33 +12,33 @@ import com.adaming.dao.IDaoClient;
 import com.adaming.entities.Client;
 import com.adaming.service.IServiceClient;
 
-
-
-
-
-@Controller (value = "mbClient")
+@Controller(value = "mbClient")
 @SessionScoped
 public class ClientController {
-	
-	
-//	@Autowired
-//	private IDaoClient daoClient;
-	
+
+	// @Autowired
+	// private IDaoClient daoClient;
+
 	@Autowired
 	private IServiceClient serviceClient;
-		
+
 	private List<Client> list = new ArrayList<Client>();
-	
-	
+
 	private Client client;
-	
+
 	private String nom;
 	private String prenom;
+	private String adresse;
+	private int codePostal;
+	private String ville;
 	private String telephone;
-	
+	private Client client1;
+	private Integer idASupprimer;
 
-	
+	public ClientController() {
+		super();
 
+	}
 
 	public List<Client> getList() {
 		list = serviceClient.getAllClients();
@@ -48,8 +48,6 @@ public class ClientController {
 	public void setList(List<Client> list) {
 		this.list = list;
 	}
-	
-	
 
 	public String getNom() {
 		return nom;
@@ -67,6 +65,30 @@ public class ClientController {
 		this.prenom = prenom;
 	}
 
+	public String getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
+
+	public int getCodePostal() {
+		return codePostal;
+	}
+
+	public void setCodePostal(int codePostal) {
+		this.codePostal = codePostal;
+	}
+
+	public String getVille() {
+		return ville;
+	}
+
+	public void setVille(String ville) {
+		this.ville = ville;
+	}
+
 	public String getTelephone() {
 		return telephone;
 	}
@@ -82,5 +104,41 @@ public class ClientController {
 	public void setClient(Client client) {
 		this.client = client;
 	}
+
+	public Client getClient1() {
+		client1 = serviceClient.getClientById(1);
+		return client1;
+	}
+
+	public void setClient1(Client client1) {
+		this.client1 = client1;
+	}
+
+	public void addClient() {
+		client = new Client(nom, prenom, adresse, codePostal, ville, telephone);
+		serviceClient.addClient(client);
+	}
+
+	public void choisirIdASupprimer(int idCourant) {
+		idASupprimer = idCourant;
+		Client clientTemp = serviceClient.getClientById(idCourant);
+		nom = clientTemp.getNom();
+		prenom = clientTemp.getPrenom();
+		adresse = clientTemp.getAdresse();
+		codePostal = clientTemp.getCodePostal();
+		ville = clientTemp.getVille();
+		telephone = clientTemp.getTelephone();
+	}
+
+	public void deleteClient() {
+		if ((idASupprimer != null) && (serviceClient.getClientById(idASupprimer) != null)) {
+			serviceClient.deleteClient(idASupprimer);
+		}
+	}
 	
+	public void updateClient(){
+		if((idASupprimer != null) && (serviceClient.getClientById(idASupprimer) != null)){
+			serviceClient.updateClient(new Client(idASupprimer, nom, prenom, adresse, codePostal, ville, telephone));
+		}
+	}
 }
