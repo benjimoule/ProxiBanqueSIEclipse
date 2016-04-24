@@ -5,18 +5,27 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.NavigationHandler;
+import javax.faces.context.FacesContext;
+import javax.transaction.Transactional;
 
+import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.adaming.dao.IDaoClient;
 import com.adaming.dao.IDaoConseiller;
 import com.adaming.entities.Client;
+import com.adaming.entities.CompteCourant;
+import com.adaming.entities.CompteEpargne;
 import com.adaming.entities.Conseiller;
 import com.adaming.service.IServiceClient;
+import com.adaming.service.IServiceCompteCourant;
+import com.adaming.service.IServiceCompteEpargne;
 
 @Controller(value = "mbClient")
 @SessionScoped
+@Transactional
 public class ClientController {
 
 	// @Autowired
@@ -25,6 +34,11 @@ public class ClientController {
 	@Autowired
 	private IServiceClient serviceClient;
 	
+	@Autowired
+	private IServiceCompteCourant serviceCC;
+	
+	@Autowired
+	private IServiceCompteEpargne serviceCE;
 
 	private List<Client> list = new ArrayList<Client>();
 	private List<Client>listeClientDuConseiler = new ArrayList<Client>();
@@ -39,7 +53,64 @@ public class ClientController {
 	private Client client1;
 	private Integer idASupprimer;
 	
+	public String Redirection(){
+		
+		System.out.println("redirection simulation");
+		FacesContext context = FacesContext.getCurrentInstance();
+	    NavigationHandler navigationHandler = context.getApplication().getNavigationHandler();
+	    navigationHandler.handleNavigation(context, null, "simulation");
+		return "simulation";
+	}
 
+	
+	public  boolean ClientEstRiche(int id){
+		Client clientTeste=serviceClient.getClientById(id);
+		
+		//recuperer les comptes Courants du clients
+		List<CompteCourant> listeDeTousLesComptesCourants=serviceCC.getAllCompteCourants();
+		List<CompteCourant>  listeComptesCourantsDuClients=new ArrayList<>();
+		
+		for (Iterator<CompteCourant> it = listeDeTousLesComptesCourants.iterator(); it.hasNext();) {
+			CompteCourant item = it.next();
+            if (item.getClient().getId()==clientTeste.getId() ) {
+            	listeComptesCourantsDuClients.add(item);
+         
+            }}
+		
+		List<CompteEpargne>  listeDeTousLesComptesEpargnes=serviceCE.getAllCompteEpargnes();
+		List<CompteEpargne>  listeComptesEpargnesDuClients=new ArrayList<>();
+		
+		for (Iterator<CompteEpargne> i = listeDeTousLesComptesEpargnes.iterator(); i.hasNext();) {
+			CompteEpargne item = i.next();
+            if (item.getClient().getId()==clientTeste.getId() ) {
+            	listeComptesEpargnesDuClients.add(item);           
+            }}
+		
+		//test somme des comptes
+		float sommesDesComptesEpargnesDuClients =0;
+		
+		for (Iterator<CompteEpargne> i = listeComptesEpargnesDuClients.iterator(); i.hasNext();) {
+			CompteEpargne item = i.next();
+			sommesDesComptesEpargnesDuClients=sommesDesComptesEpargnesDuClients+item.getSolde();         
+            }
+		
+		float sommesDesComptesCourantsDuClients=0;
+		for (Iterator<CompteCourant> i = listeComptesCourantsDuClients.iterator(); i.hasNext();) {
+			CompteCourant item = i.next();
+			sommesDesComptesCourantsDuClients=sommesDesComptesCourantsDuClients+item.getSolde();         
+            }
+		
+		float sommesDesComptesDuClients=sommesDesComptesCourantsDuClients+sommesDesComptesEpargnesDuClients;
+		
+		if(sommesDesComptesDuClients>50000){
+			clientTeste.setEstRiche(true);
+		}else{clientTeste.setEstRiche(false);
+		}
+		
+		return clientTeste.isEstRiche();
+	}
+
+	
 	public ClientController() {
 		super();
 

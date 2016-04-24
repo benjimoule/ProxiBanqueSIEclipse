@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    
 
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -8,17 +9,26 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 <h:head>
+<meta http-equiv="refresh" content="1;url=Authentification.xhtml" />
 	<title>Authentification</title>
 	
 </h:head>
 <h:body>
 <h1>Bienvenue sur ProxiBanque</h1>
-<h:form title="authentification">
+<h:form  >
 <h:outputLabel>Nom: </h:outputLabel>
-<h:inputText value="#{mbConseiller.conseillerauthentification.nom}"/>
+<h:inputText id="nom" value="#{mbConseiller.conseillerauthentification.nom}" required="true" >
+   <p:ajax event="change" update="nom" /> 
+</h:inputText>
+
 <h:outputLabel>Prenom: </h:outputLabel>
-<h:inputText value="#{mbConseiller.conseillerauthentification.prenom}"/>
-<h:commandButton value="S'Authentifier" onclick="#{mbConseiller.authentifier()}"/>
+<h:inputText id="prenom" value="#{mbConseiller.conseillerauthentification.prenom}" required="true" >
+ <p:ajax event="change" update="prenom" /> 
+</h:inputText>
+<p:commandButton type="submit" value="S' Authentifier" onclick="#{mbConseiller.authentifier()}" >
+
+</p:commandButton>
+
 </h:form>
  
 

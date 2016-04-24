@@ -34,6 +34,7 @@
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
+ 
 <!--   <security-constraint> -->
 <!--     <display-name>Test d'authentification Tomcat</display-name> -->
 <!--     <web-resource-collection> -->

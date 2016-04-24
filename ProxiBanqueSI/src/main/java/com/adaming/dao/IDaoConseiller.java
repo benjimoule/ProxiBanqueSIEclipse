@@ -3,7 +3,7 @@ package com.adaming.dao;
 import java.util.List;
 
 import com.adaming.entities.Conseiller;
-import com.adaming.entities.Conseiller;
+
 
 public interface IDaoConseiller {
 	List<Conseiller> getAllConseillers();

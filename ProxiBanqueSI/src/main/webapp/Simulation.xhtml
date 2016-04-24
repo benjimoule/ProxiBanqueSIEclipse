@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<title>Simulation de credits</title>
+</h:head>
+<h:body>
+
+
+<h:form>
+<p:selectOneMenu id="taux" value="#{mbSimulation.tauxInteret}" style="width:125px">
+
+            <f:selectItem itemLabel="Choisissez votre projet" itemValue="" noSelectionOption="true"  />
+             <f:selectItem itemLabel="Prêt Immoblier" itemValue="0.04" />
+            <f:selectItem itemLabel="Voiture" itemValue="0.07" />
+            <f:selectItem itemLabel="Travaux"  itemValue="0.055" />
+            <f:selectItem itemLabel="Autres" itemValue="0.085" />
+            <p:ajax  listener="#{dropdownView.onCountryChange}" update="city" />
+            <!--<f:selectItems value="#{mbSimulation.tauxInterets}" />-->
+        </p:selectOneMenu>
+
+<h:outputText value="Montant"/>
+<br/>
+	<p:inputText id="montant" value="#{mbSimulation.capital}">
+	<p:ajax event="change" update="montant" />
+	</p:inputText>
+	<br/>
+	<h:outputText value="Mensualité"/>
+	<br/>
+	<p:inputText  id="mensualite" value="#{mbSimulation.mensualite}">
+	<p:ajax event="change" update="mensualite" />
+	</p:inputText>
+	<h:outputText value="ou bien"/>
+	<h:outputText value="  Duree"/>
+	<p:inputText  id="duree" value="#{mbSimulation.duree}">
+	<p:ajax event="change" update="duree" />
+	</p:inputText>
+	<br/>
+	<h:button  value="simuler" onclick="#{mbSimulation.simulationDeCredit()}"/>
+</h:form>
+
+ <p:dataTable var="simulation" value="#{mbSimulation.listeDesSimulation}">
+			<p:column headerText="Capital Emprunté">
+		
+					<h:outputText value="#{simulation.capital}"/>		
+			</p:column>
+
+			<p:column headerText="Mensualite">
+			<h:outputText value="#{simulation.mensualite}"/>
+		</p:column>
+
+			<p:column headerText="Duree en mois">
+			<h:outputText value="#{simulation.duree}"/>
+		</p:column>
+
+			<p:column headerText="Taux d'interet">
+			<h:outputText value="#{simulation.tauxInteret}"/>
+		</p:column>	
+			<p:column headerText="Cout du credit">
+			<h:outputText value="#{simulation.coutDuCredit}"/>
+		</p:column>	
+		</p:dataTable>
+	
+</h:body>
+</html>

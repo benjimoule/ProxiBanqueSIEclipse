@@ -14,7 +14,7 @@
 </h:head>
 <h:body>
 
-	<h:form>
+	<h:form  >
 		<p:dataTable value="#{mbConseiller.listeClientsDuConseiler}" var="liste">
 			<p:column headerText="Id">
 				<p:commandLink id="link" update="@all"
@@ -34,6 +34,17 @@
 			<p:column headerText="Telephone">
 			#{liste.telephone}
 		</p:column>
+		<p:column  id="riche" headerText="ClientVIP" >
+			#{mbClient.ClientEstRiche(liste.id)}
+			
+		</p:column>
+	<p:column headerText="Simulation de credit">
+	<p:commandLink id="simulation" actionListener="#{mbClient.Redirection()}">
+	<h:outputText value="effectuer une simulation pour Mr #{liste.nom} #{liste.prenom}"  />
+			
+	</p:commandLink>
+		</p:column>
+		
 		</p:dataTable>
 		<h:commandButton value="supprimer" action="#{mbClient.deleteClient()}" />
 	</h:form>

@@ -1,19 +1,27 @@
 package com.adaming.mb;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
+//import javax.faces.event.ValueChangeEvent;
+
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.adaming.dao.IDaoClient;
+
+
+//import com.adaming.dao.IDaoClient;
 import com.adaming.entities.Client;
 import com.adaming.entities.Conseiller;
+import com.adaming.service.IServiceCompteCourant;
+import com.adaming.service.IServiceCompteEpargne;
 import com.adaming.service.IserviceConseiller;
 import com.adaming.service.ServiceClient;
 import com.adaming.service.ServiceConseiller;
@@ -23,19 +31,20 @@ import com.adaming.service.ServiceConseiller;
 public class ConseillerController {
 	@Autowired
 	private ServiceClient daoclient;
-
+	@Autowired
+	private IserviceConseiller service;
 	
-	private Conseiller conseillerauthentification;
+
+	private  Conseiller conseillerCourant=new Conseiller();
+	private Conseiller conseillerauthentification =new Conseiller();
 	private List<Conseiller> listedetouslesconseiller=new ArrayList<Conseiller>();
 	private List<Client> listeClientsDuConseiler=new ArrayList<Client>();
 	private List<Client> listeDeTousLesClients=new ArrayList<Client>();
 	
 	
 	
-	@Autowired
-	private IserviceConseiller service; 
 	
-	private  Conseiller conseillerCourant=new Conseiller();
+	
 	
 	
 	public String authentifier(){
@@ -46,62 +55,70 @@ public class ConseillerController {
                 conseillerCourant=item;
                 
             }
-            
+
+            System.out.println("---- nombre de tous les conseiller---------");            
             System.out.println(listedetouslesconseiller.size());
-           
+            System.out.println("---- nom du conseiller---------");
             System.out.println(conseillerauthentification.getNom());
+           System.out.println("---- prenom du conseiller---------");
             System.out.println(conseillerauthentification.getPrenom());
         }
 		
+		
 		//choix des clients
 		listeDeTousLesClients=daoclient.getAllClients();
+		List<Client> listeClientsDuConseilertemporaire=new ArrayList<Client>();
 		for (Iterator<Client> it = listeDeTousLesClients.iterator(); it.hasNext();) {
             Client item = it.next();
             if (item.getConseiller().getId()==conseillerCourant.getId() ) {
-            	listeClientsDuConseiler.add(item);
+//            	System.out.println("avant l'add");
+            	listeClientsDuConseilertemporaire.add(item);
+//            	System.out.println("apres l'add");
                 
             }
         }
+		 System.out.println("---- liste des clients du conseiller temporaire---------");
+		System.out.println(listeClientsDuConseilertemporaire.size());
+		
+		//supprimer les clients en double
+		List<Client> newList = new ArrayList<Client>(new HashSet<Client>(listeClientsDuConseilertemporaire));
+		listeClientsDuConseiler=newList;
+		
+		System.out.println("---- liste des clients du conseiller---------");
 		System.out.println(listeClientsDuConseiler.size());
-		System.out.println(conseillerCourant.getNom());
 		
 		FacesContext context = FacesContext.getCurrentInstance();
 	    NavigationHandler navigationHandler = context.getApplication().getNavigationHandler();
 	    navigationHandler.handleNavigation(context, null, "success");
 		
 			return "success";	
-		
-		
 	}
-      
-
-
-
-
-	
-
-
-
+     
 	
 	
-
-
-
-
-
-
 
 	public ConseillerController() {
 		super();
-		this.conseillerauthentification= new Conseiller();
+		
 	}
 
 
 
-
-
-
-
+	public ConseillerController(ServiceClient daoclient,
+			Conseiller conseillerauthentification,
+			List<Conseiller> listedetouslesconseiller,
+			List<Client> listeClientsDuConseiler,
+			List<Client> listeDeTousLesClients, IserviceConseiller service,
+			Conseiller conseillerCourant) {
+		super();
+		this.daoclient = daoclient;
+		this.conseillerauthentification = conseillerauthentification;
+		this.listedetouslesconseiller = listedetouslesconseiller;
+		this.listeClientsDuConseiler = listeClientsDuConseiler;
+		this.listeDeTousLesClients = listeDeTousLesClients;
+		this.service = service;
+		this.conseillerCourant = conseillerCourant;
+	}
 
 
 

@@ -56,6 +56,8 @@ public class Client implements Serializable{
     @ManyToOne
     private Conseiller conseiller;
     
+    @Column(name="est_riche")
+    private boolean estRiche;
 
     public Client() {
     }
@@ -206,6 +208,14 @@ public class Client implements Serializable{
 
 	public void setConseiller(Conseiller conseiller) {
 		this.conseiller = conseiller;
+	}
+
+	public boolean isEstRiche() {
+		return estRiche;
+	}
+
+	public void setEstRiche(boolean estRiche) {
+		this.estRiche = estRiche;
 	}
 
     

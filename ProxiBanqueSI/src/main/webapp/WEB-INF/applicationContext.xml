@@ -38,6 +38,7 @@
 				<prop key="hibernate.show_sql">false</prop>
 			</props>
 		</property>
+		
 	</bean>
 
 <!-- 	 Définition du gestionnaire de transaction avec ref au bean sessionFactory  -->
