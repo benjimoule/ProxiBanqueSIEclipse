@@ -48,6 +48,10 @@ public class ConseillerController {
 	
 	
 	public String authentifier(){
+		if(conseillerauthentification.getNom()==null&&conseillerauthentification.getPrenom()==null){
+			System.out.println("authentification null");
+		}
+		else{
 		listedetouslesconseiller=service.getAllConseillers();
 		for (Iterator<Conseiller> i = listedetouslesconseiller.iterator(); i.hasNext();) {
             Conseiller item = i.next();
@@ -90,8 +94,12 @@ public class ConseillerController {
 		FacesContext context = FacesContext.getCurrentInstance();
 	    NavigationHandler navigationHandler = context.getApplication().getNavigationHandler();
 	    navigationHandler.handleNavigation(context, null, "success");
-		
-			return "success";	
+	   
+				}
+		FacesContext context = FacesContext.getCurrentInstance();
+	    NavigationHandler navigationHandler = context.getApplication().getNavigationHandler();
+	    navigationHandler.handleNavigation(context, null, "success");
+		return "success";
 	}
      
 	
