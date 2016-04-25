@@ -53,6 +53,8 @@ public class ClientController {
 	private String telephone;
 	private Client client1;
 	private Integer idASupprimer;
+	
+	private CompteCourant cc;
 
 	public String RedirectionVirement() {
 
