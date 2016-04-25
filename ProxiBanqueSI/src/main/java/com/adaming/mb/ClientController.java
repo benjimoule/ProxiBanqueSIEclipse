@@ -1,12 +1,16 @@
 package com.adaming.mb;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
 import javax.transaction.Transactional;
 
 import org.hibernate.Query;
@@ -15,6 +19,7 @@ import org.springframework.stereotype.Controller;
 
 import com.adaming.dao.IDaoClient;
 import com.adaming.dao.IDaoConseiller;
+import com.adaming.entities.CarteBancaire;
 import com.adaming.entities.Client;
 import com.adaming.entities.CompteCourant;
 import com.adaming.entities.CompteEpargne;
@@ -39,6 +44,9 @@ public class ClientController {
 
 	@Autowired
 	private IServiceCompteEpargne serviceCE;
+	
+	
+	private ConseillerController conseilContr;
 
 	private List<Client> list = new ArrayList<Client>();
 	private List<Client> auditList;
@@ -54,7 +62,18 @@ public class ClientController {
 	private Client client1;
 	private Integer idASupprimer;
 	
-	private CompteCourant cc;
+	private Date ccDateOuverture;
+    private float ccSolde;
+    private float ccDecouvert;
+    
+    private Date ceDateOuverture;
+    private float ceSolde;
+    private float ceTaux;
+    
+    private int cbNumero;
+    private String cbDateValidite;
+    private int cbPictogramme;
+    private boolean cbActive;
 
 	public String RedirectionVirement() {
 
@@ -232,10 +251,97 @@ public class ClientController {
 	public void setAuditList(List<Client> auditList) {
 		this.auditList = auditList;
 	}
+	
+	
+
+	public Date getCcDateOuverture() {
+		return ccDateOuverture;
+	}
+
+	public void setCcDateOuverture(Date ccDateOuverture) {
+		this.ccDateOuverture = ccDateOuverture;
+	}
+
+	public float getCcSolde() {
+		return ccSolde;
+	}
+
+	public void setCcSolde(float ccSolde) {
+		this.ccSolde = ccSolde;
+	}
+
+	public float getCcDecouvert() {
+		return ccDecouvert;
+	}
+
+	public void setCcDecouvert(float ccDecouvert) {
+		this.ccDecouvert = ccDecouvert;
+	}
+
+	public Date getCeDateOuverture() {
+		return ceDateOuverture;
+	}
+
+	public void setCeDateOuverture(Date ceDateOuverture) {
+		this.ceDateOuverture = ceDateOuverture;
+	}
+
+	public float getCeSolde() {
+		return ceSolde;
+	}
+
+	public void setCeSolde(float ceSolde) {
+		this.ceSolde = ceSolde;
+	}
+
+	public float getCeTaux() {
+		return ceTaux;
+	}
+
+	public void setCeTaux(float ceTaux) {
+		this.ceTaux = ceTaux;
+	}
+
+	public int getCbNumero() {
+		return cbNumero;
+	}
+
+	public void setCbNumero(int cbNumero) {
+		this.cbNumero = cbNumero;
+	}
+
+	public String getCbDateValidite() {
+		return cbDateValidite;
+	}
+
+	public void setCbDateValidite(String cbDateValidite) {
+		this.cbDateValidite = cbDateValidite;
+	}
+
+	public int getCbPictogramme() {
+		return cbPictogramme;
+	}
+
+	public void setCbPictogramme(int cbPictogramme) {
+		this.cbPictogramme = cbPictogramme;
+	}
+
+	public boolean isCbActive() {
+		return cbActive;
+	}
+
+	public void setCbActive(boolean cbActive) {
+		this.cbActive = cbActive;
+	}
 
 	public void addClient() {
 		client = new Client(nom, prenom, adresse, codePostal, ville, telephone);
+		Conseiller conseilCourant = conseilContr.getConseillerCourant();
+		client.setConseiller(conseilCourant);
 		serviceClient.addClient(client);
+		
+		CarteBancaire cb = new CarteBancaire(cbNumero, cbDateValidite, cbPictogramme, cbActive);
+		
 	}
 
 	public void choisirIdASupprimer(int idCourant) {

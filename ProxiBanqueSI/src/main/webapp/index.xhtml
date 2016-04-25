@@ -61,6 +61,8 @@
 	</h:form>
 
 	<h:form>
+		<h:outputText>Client</h:outputText>
+		<br />
 		<h:outputText>Nom</h:outputText>
 		<h:inputText value="#{mbClient.nom}" />
 		<br />
@@ -78,6 +80,24 @@
 		<br />
 		<h:outputText>telephone</h:outputText>
 		<h:inputText value="#{mbClient.telephone}" />
+		<br />
+		<h:outputText>Carte bancaire</h:outputText>
+		<br />
+		<h:outputText>Numero</h:outputText>
+		<h:inputText value="#{mbClient.cbNumero}" />
+		<br />
+		<h:outputText>Numero</h:outputText>
+		<h:inputText value="#{mbClient.cbDateValidite}" />
+		<br />
+		<h:outputText>Numero</h:outputText>
+		<h:inputText value="#{mbClient.cbPictogramme}" />
+		<br />
+		<h:outputText>Numero</h:outputText>
+		<h:inputText value="#{mbClient.cbActive}" />
+		<br />
+		<h:outputText>Compte courant</h:outputText>
+		<br />
+		<h:outputText>Compte epargne</h:outputText>
 		<br />
 		<h:commandButton value="ajouter" action="#{mbClient.addClient()}" />
 		<h:commandButton value="modifier" action="#{mbClient.updateClient()}" />
