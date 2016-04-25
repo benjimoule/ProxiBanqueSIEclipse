@@ -61,43 +61,64 @@
 	</h:form>
 
 	<h:form>
-		<h:outputText>Client</h:outputText>
+		<h:outputText value="Client"/>
 		<br />
-		<h:outputText>Nom</h:outputText>
+		<h:outputText value="Nom"/>
 		<h:inputText value="#{mbClient.nom}" />
 		<br />
-		<h:outputText>prenom</h:outputText>
+		<h:outputText value="Prenom"/>
 		<h:inputText value="#{mbClient.prenom}" />
 		<br />
-		<h:outputText>adresse</h:outputText>
+		<h:outputText value="adresse"/>
 		<h:inputText value="#{mbClient.adresse}" />
 		<br />
-		<h:outputText>code postal</h:outputText>
+		<h:outputText value="code postal"/>
 		<h:inputText value="#{mbClient.codePostal}" />
 		<br />
-		<h:outputText>ville</h:outputText>
+		<h:outputText value="ville"/>
 		<h:inputText value="#{mbClient.ville}" />
 		<br />
-		<h:outputText>telephone</h:outputText>
+		<h:outputText value="telephone"/>
 		<h:inputText value="#{mbClient.telephone}" />
 		<br />
-		<h:outputText>Carte bancaire</h:outputText>
 		<br />
-		<h:outputText>Numero</h:outputText>
+		<h:outputText value="Carte bancaire"/>
+		<br />
+		<h:outputText value="Numero"/>
 		<h:inputText value="#{mbClient.cbNumero}" />
 		<br />
-		<h:outputText>Numero</h:outputText>
+		<h:outputText value="Date de fin de validite"/>
 		<h:inputText value="#{mbClient.cbDateValidite}" />
 		<br />
-		<h:outputText>Numero</h:outputText>
+		<h:outputText value="Pictogramme"/>
 		<h:inputText value="#{mbClient.cbPictogramme}" />
 		<br />
-		<h:outputText>Numero</h:outputText>
+		<h:outputText value="Active?"/>
 		<h:inputText value="#{mbClient.cbActive}" />
 		<br />
-		<h:outputText>Compte courant</h:outputText>
 		<br />
-		<h:outputText>Compte epargne</h:outputText>
+		<h:outputText value="Compte courant"/>
+		<br />
+		<h:outputText value="Date d'ouverture"/>
+		<h:inputText value="#{mbClient.ccDateOuverture}" />
+		<br />
+		<h:outputText value="Solde"/>
+		<h:inputText value="#{mbClient.ccSolde}" />
+		<br />
+		<h:outputText value="Decouvert autorise"/>
+		<h:inputText value="#{mbClient.ccDecouvert}" />
+		<br />
+		<br />
+		<h:outputText value="Compte epargne"/>
+		<br />
+		<h:outputText value="Date d'ouverture"/>
+		<h:inputText value="#{mbClient.ceDateOuverture}" />
+		<br />
+		<h:outputText value="Solde"/>
+		<h:inputText value="#{mbClient.ceSolde}" />
+		<br />
+		<h:outputText value="Taux"/>
+		<h:inputText value="#{mbClient.ceTaux}" />
 		<br />
 		<h:commandButton value="ajouter" action="#{mbClient.addClient()}" />
 		<h:commandButton value="modifier" action="#{mbClient.updateClient()}" />
@@ -105,13 +126,13 @@
 	</h:form>
 
 	<h:form>
-		<h:outputText>Nom</h:outputText>
+		<h:outputText value="Nom"/>
 		<h:inputText value="#{mbClient.client1.nom}" />
 		<br />
-		<h:outputText>prenom</h:outputText>
+		<h:outputText value="prenom"/>
 		<h:inputText value="#{mbClient.client1.prenom}" />
 		<br />
-		<h:outputText>telephone</h:outputText>
+		<h:outputText value="telephone"/>
 		<h:inputText value="#{mbClient.client1.telephone}" />
 		<br />
 

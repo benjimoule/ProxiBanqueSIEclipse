@@ -1,5 +1,7 @@
 package com.adaming.mb;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -24,6 +26,7 @@ import com.adaming.entities.Client;
 import com.adaming.entities.CompteCourant;
 import com.adaming.entities.CompteEpargne;
 import com.adaming.entities.Conseiller;
+import com.adaming.service.IServiceCarteBancaire;
 import com.adaming.service.IServiceClient;
 import com.adaming.service.IServiceCompteCourant;
 import com.adaming.service.IServiceCompteEpargne;
@@ -45,8 +48,11 @@ public class ClientController {
 	@Autowired
 	private IServiceCompteEpargne serviceCE;
 	
+	@Autowired
+	private IServiceCarteBancaire serviceCB;
 	
-	private ConseillerController conseilContr;
+	
+	//private ConseillerController conseilContr;
 
 	private List<Client> list = new ArrayList<Client>();
 	private List<Client> auditList;
@@ -62,11 +68,11 @@ public class ClientController {
 	private Client client1;
 	private Integer idASupprimer;
 	
-	private Date ccDateOuverture;
+	private String ccDateOuverture;
     private float ccSolde;
     private float ccDecouvert;
     
-    private Date ceDateOuverture;
+    private String ceDateOuverture;
     private float ceSolde;
     private float ceTaux;
     
@@ -74,6 +80,9 @@ public class ClientController {
     private String cbDateValidite;
     private int cbPictogramme;
     private boolean cbActive;
+    
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+
 
 	public String RedirectionVirement() {
 
@@ -254,11 +263,11 @@ public class ClientController {
 	
 	
 
-	public Date getCcDateOuverture() {
+	public String getCcDateOuverture() {
 		return ccDateOuverture;
 	}
 
-	public void setCcDateOuverture(Date ccDateOuverture) {
+	public void setCcDateOuverture(String ccDateOuverture) {
 		this.ccDateOuverture = ccDateOuverture;
 	}
 
@@ -278,11 +287,11 @@ public class ClientController {
 		this.ccDecouvert = ccDecouvert;
 	}
 
-	public Date getCeDateOuverture() {
+	public String getCeDateOuverture() {
 		return ceDateOuverture;
 	}
 
-	public void setCeDateOuverture(Date ceDateOuverture) {
+	public void setCeDateOuverture(String ceDateOuverture) {
 		this.ceDateOuverture = ceDateOuverture;
 	}
 
@@ -334,13 +343,24 @@ public class ClientController {
 		this.cbActive = cbActive;
 	}
 
-	public void addClient() {
+	public void addClient() throws ParseException {
 		client = new Client(nom, prenom, adresse, codePostal, ville, telephone);
-		Conseiller conseilCourant = conseilContr.getConseillerCourant();
-		client.setConseiller(conseilCourant);
+		//Conseiller conseilCourant = conseilContr.getConseillerCourant();
+		//client.setConseiller(conseilCourant);
 		serviceClient.addClient(client);
 		
 		CarteBancaire cb = new CarteBancaire(cbNumero, cbDateValidite, cbPictogramme, cbActive);
+		serviceCB.addCarteBancaire(cb);
+		
+		CompteCourant cc = new CompteCourant(sdf.parse(ccDateOuverture), ccSolde, client, ccDecouvert, cb);
+		serviceCC.addCompteCourant(cc);
+		client.setCc(cc);
+		
+		CompteEpargne ce = new CompteEpargne(sdf.parse(ceDateOuverture), ceSolde, client, ceTaux);
+		serviceCE.addCompteEpargne(ce);
+		client.setCe(ce);
+		
+		serviceClient.updateClient(client);
 		
 	}
 
