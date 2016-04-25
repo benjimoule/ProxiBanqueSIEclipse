@@ -120,7 +120,7 @@
 		<h:outputText value="Taux"/>
 		<h:inputText value="#{mbClient.ceTaux}" />
 		<br />
-		<h:commandButton value="ajouter" action="#{mbClient.addClient()}" />
+		<h:commandButton value="ajouter" action="#{mbClient.addClient(mbConseiller.conseillerCourant)}" />
 		<h:commandButton value="modifier" action="#{mbClient.updateClient()}" />
 
 	</h:form>

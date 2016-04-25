@@ -365,10 +365,9 @@ public class ClientController {
 		this.idASupprimer = idASupprimer;
 	}
 
-	public void addClient() throws ParseException {
+	public void addClient(Conseiller conseilCourant) throws ParseException {
 		client = new Client(nom, prenom, adresse, codePostal, ville, telephone);
-		//Conseiller conseilCourant = conseilContr.getConseillerCourant();
-		//client.setConseiller(conseilCourant);
+		client.setConseiller(conseilCourant);
 		serviceClient.addClient(client);
 		
 		CarteBancaire cb = new CarteBancaire(cbNumero, cbDateValidite, cbPictogramme, cbActive);
