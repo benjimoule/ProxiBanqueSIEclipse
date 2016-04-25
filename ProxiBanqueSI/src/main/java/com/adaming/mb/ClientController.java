@@ -33,15 +33,16 @@ public class ClientController {
 
 	@Autowired
 	private IServiceClient serviceClient;
-	
+
 	@Autowired
 	private IServiceCompteCourant serviceCC;
-	
+
 	@Autowired
 	private IServiceCompteEpargne serviceCE;
 
 	private List<Client> list = new ArrayList<Client>();
-	private List<Client>listeClientDuConseiler = new ArrayList<Client>();
+	private List<Client> auditList;
+	private List<Client> listeClientDuConseiler = new ArrayList<Client>();
 	private Client client;
 
 	private String nom;
@@ -52,82 +53,94 @@ public class ClientController {
 	private String telephone;
 	private Client client1;
 	private Integer idASupprimer;
-	
-	public String RedirectionVirement(){
-		
+
+	public String RedirectionVirement() {
+
 		System.out.println("redirection virement");
 		FacesContext context = FacesContext.getCurrentInstance();
-	    NavigationHandler navigationHandler = context.getApplication().getNavigationHandler();
-	    navigationHandler.handleNavigation(context, null, "virement");
+		NavigationHandler navigationHandler = context.getApplication()
+				.getNavigationHandler();
+		navigationHandler.handleNavigation(context, null, "virement");
 		return "virement";
 	}
-	
-	public String Redirection(){
-		
+
+	public String Redirection() {
+
 		System.out.println("redirection simulation");
 		FacesContext context = FacesContext.getCurrentInstance();
-	    NavigationHandler navigationHandler = context.getApplication().getNavigationHandler();
-	    navigationHandler.handleNavigation(context, null, "simulation");
+		NavigationHandler navigationHandler = context.getApplication()
+				.getNavigationHandler();
+		navigationHandler.handleNavigation(context, null, "simulation");
 		return "simulation";
 	}
 
-	
-	public  boolean ClientEstRiche(int id){
-		Client clientTeste=serviceClient.getClientById(id);
-		
-		//recuperer les comptes Courants du clients
-		List<CompteCourant> listeDeTousLesComptesCourants=serviceCC.getAllCompteCourants();
-		List<CompteCourant>  listeComptesCourantsDuClients=new ArrayList<>();
-		
-		for (Iterator<CompteCourant> it = listeDeTousLesComptesCourants.iterator(); it.hasNext();) {
+	public boolean ClientEstRiche(int id) {
+		Client clientTeste = serviceClient.getClientById(id);
+
+		// recuperer les comptes Courants du clients
+		List<CompteCourant> listeDeTousLesComptesCourants = serviceCC
+				.getAllCompteCourants();
+		List<CompteCourant> listeComptesCourantsDuClients = new ArrayList<>();
+
+		for (Iterator<CompteCourant> it = listeDeTousLesComptesCourants
+				.iterator(); it.hasNext();) {
 			CompteCourant item = it.next();
-            if (item.getClient().getId()==clientTeste.getId() ) {
-            	listeComptesCourantsDuClients.add(item);
-         
-            }}
-		
-		List<CompteEpargne>  listeDeTousLesComptesEpargnes=serviceCE.getAllCompteEpargnes();
-		List<CompteEpargne>  listeComptesEpargnesDuClients=new ArrayList<>();
-		
-		for (Iterator<CompteEpargne> i = listeDeTousLesComptesEpargnes.iterator(); i.hasNext();) {
-			CompteEpargne item = i.next();
-            if (item.getClient().getId()==clientTeste.getId() ) {
-            	listeComptesEpargnesDuClients.add(item);           
-            }}
-		
-		//test somme des comptes
-		float sommesDesComptesEpargnesDuClients =0;
-		
-		for (Iterator<CompteEpargne> i = listeComptesEpargnesDuClients.iterator(); i.hasNext();) {
-			CompteEpargne item = i.next();
-			sommesDesComptesEpargnesDuClients=sommesDesComptesEpargnesDuClients+item.getSolde();         
-            }
-		
-		float sommesDesComptesCourantsDuClients=0;
-		for (Iterator<CompteCourant> i = listeComptesCourantsDuClients.iterator(); i.hasNext();) {
-			CompteCourant item = i.next();
-			sommesDesComptesCourantsDuClients=sommesDesComptesCourantsDuClients+item.getSolde();         
-            }
-		
-		float sommesDesComptesDuClients=sommesDesComptesCourantsDuClients+sommesDesComptesEpargnesDuClients;
-		
-		if(sommesDesComptesDuClients>50000){
-			clientTeste.setEstRiche(true);
-		}else{clientTeste.setEstRiche(false);
+			if (item.getClient().getId() == clientTeste.getId()) {
+				listeComptesCourantsDuClients.add(item);
+
+			}
 		}
-		
+
+		List<CompteEpargne> listeDeTousLesComptesEpargnes = serviceCE
+				.getAllCompteEpargnes();
+		List<CompteEpargne> listeComptesEpargnesDuClients = new ArrayList<>();
+
+		for (Iterator<CompteEpargne> i = listeDeTousLesComptesEpargnes
+				.iterator(); i.hasNext();) {
+			CompteEpargne item = i.next();
+			if (item.getClient().getId() == clientTeste.getId()) {
+				listeComptesEpargnesDuClients.add(item);
+			}
+		}
+
+		// test somme des comptes
+		float sommesDesComptesEpargnesDuClients = 0;
+
+		for (Iterator<CompteEpargne> i = listeComptesEpargnesDuClients
+				.iterator(); i.hasNext();) {
+			CompteEpargne item = i.next();
+			sommesDesComptesEpargnesDuClients = sommesDesComptesEpargnesDuClients
+					+ item.getSolde();
+		}
+
+		float sommesDesComptesCourantsDuClients = 0;
+		for (Iterator<CompteCourant> i = listeComptesCourantsDuClients
+				.iterator(); i.hasNext();) {
+			CompteCourant item = i.next();
+			sommesDesComptesCourantsDuClients = sommesDesComptesCourantsDuClients
+					+ item.getSolde();
+		}
+
+		float sommesDesComptesDuClients = sommesDesComptesCourantsDuClients
+				+ sommesDesComptesEpargnesDuClients;
+
+		if (sommesDesComptesDuClients > 500000) {
+			clientTeste.setEstRiche(true);
+		} else {
+			clientTeste.setEstRiche(false);
+		}
+
 		return clientTeste.isEstRiche();
 	}
 
-	
 	public ClientController() {
 		super();
 
 	}
 
 	public List<Client> getList() {
-		
-		  list = serviceClient.getAllClients();
+
+		list = serviceClient.getAllClients();
 		return list;
 	}
 
@@ -207,6 +220,16 @@ public class ClientController {
 	public void setListeClientDuConseiler(List<Client> listeClientDuConseiler) {
 		this.listeClientDuConseiler = listeClientDuConseiler;
 	}
+	
+	
+
+	public List<Client> getAuditList() {
+		return auditList;
+	}
+
+	public void setAuditList(List<Client> auditList) {
+		this.auditList = auditList;
+	}
 
 	public void addClient() {
 		client = new Client(nom, prenom, adresse, codePostal, ville, telephone);
@@ -225,21 +248,39 @@ public class ClientController {
 	}
 
 	public void deleteClient() {
-		if ((idASupprimer != null) && (serviceClient.getClientById(idASupprimer) != null)) {
+		if ((idASupprimer != null)
+				&& (serviceClient.getClientById(idASupprimer) != null)) {
 			serviceClient.deleteClient(idASupprimer);
 		}
 	}
-	
-	public void updateClient(){
-		if((idASupprimer != null) && (serviceClient.getClientById(idASupprimer) != null)){
-			serviceClient.updateClient(new Client(idASupprimer, nom, prenom, adresse, codePostal, ville, telephone));
+
+	public void updateClient() {
+		if ((idASupprimer != null)
+				&& (serviceClient.getClientById(idASupprimer) != null)) {
+			serviceClient.updateClient(new Client(idASupprimer, nom, prenom,
+					adresse, codePostal, ville, telephone));
 		}
-		
+
 	}
 
-	public boolean testRiche(){
-		
-		
+	public boolean testRiche() {
+
 		return false;
+	}
+
+	public void auditer() {
+		List<Client> allClients = getList();
+		auditList = new ArrayList<>();
+
+		for (Iterator<Client> it = allClients.iterator(); it.hasNext();) {
+			Client item = it.next();
+			if ((item.getCc().getSolde() < -5000)
+					|| (item.getCe().getSolde() < -5000)) {
+				auditList.add(item);
+
+			}
+		}
+
+		
 	}
 }

@@ -14,8 +14,9 @@
 </h:head>
 <h:body>
 
-	<h:form  >
-		<p:dataTable value="#{mbConseiller.listeClientsDuConseiler}" var="liste">
+	<h:form>
+		<p:dataTable value="#{mbConseiller.listeClientsDuConseiler}"
+			var="liste">
 			<p:column headerText="Id">
 				<p:commandLink id="link" update="@all"
 					actionListener="#{mbClient.choisirIdASupprimer(liste.id)}">
@@ -34,23 +35,27 @@
 			<p:column headerText="Telephone">
 			#{liste.telephone}
 		</p:column>
-		<p:column  id="riche" headerText="ClientVIP" >
+			<p:column id="riche" headerText="ClientVIP">
 			#{mbClient.ClientEstRiche(liste.id)}
 			
 		</p:column>
-	<p:column headerText="Simulation de credit">
-	<p:commandLink id="simulation" actionListener="#{mbClient.Redirection()}">
-	<h:outputText value="effectuer une simulation pour Mr #{liste.nom} #{liste.prenom}"  />
-			
-	</p:commandLink>	
-		</p:column>
-		<p:column headerText="Virement">
-	<p:commandLink id="virement" actionListener="#{mbClient.RedirectionVirement()}">
-	<h:outputText value="effectuer un virement pour Mr #{liste.nom} #{liste.prenom}"  />
-			
-	</p:commandLink>	
-		</p:column>
-		
+			<p:column headerText="Simulation de credit">
+				<p:commandLink id="simulation"
+					actionListener="#{mbClient.Redirection()}">
+					<h:outputText
+						value="effectuer une simulation pour Mr #{liste.nom} #{liste.prenom}" />
+
+				</p:commandLink>
+			</p:column>
+			<p:column headerText="Virement">
+				<p:commandLink id="virement"
+					actionListener="#{mbClient.RedirectionVirement()}">
+					<h:outputText
+						value="effectuer un virement pour Mr #{liste.nom} #{liste.prenom}" />
+
+				</p:commandLink>
+			</p:column>
+
 		</p:dataTable>
 		<h:commandButton value="supprimer" action="#{mbClient.deleteClient()}" />
 	</h:form>
@@ -90,6 +95,32 @@
 		<h:inputText value="#{mbClient.client1.telephone}" />
 		<br />
 
+	</h:form>
+
+	<h:form>
+		<h:commandButton value="auditer" action="#{mbClient.auditer()" />
+		<p:dataTable value="#{mbClient.auditList}"
+			var="liste">
+			<p:column headerText="Id">			
+					<h:outputText value="#{liste.id}" />
+			</p:column>
+
+			<p:column headerText="Nom">
+			#{liste.nom}
+		</p:column>
+
+			<p:column headerText="Prenom">
+			#{liste.prenom}
+		</p:column>
+
+			<p:column headerText="Telephone">
+			#{liste.telephone}
+		</p:column>
+			<p:column id="riche" headerText="ClientVIP">
+			#{mbClient.ClientEstRiche(liste.id)}
+			
+		</p:column>
+		</p:dataTable>
 	</h:form>
 
 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -17,17 +18,13 @@ import junit.framework.TestCase;
 public class DaoClientTest extends TestCase {
 
 	
-	
+	@Autowired
 	private IDaoClient dao;
 	
-	@Before
-	public void setUp(){
-		dao = new DaoClient();
-	}
-	
+
 	@Test
 	public void testGetAllClients(){
 		List<Client> liste = dao.getAllClients();
-		assertEquals(1, liste.size());
+		assertEquals(3, liste.size());
 	}
 }
