@@ -58,6 +58,9 @@ public class ClientController {
 	private List<Client> auditList;
 	private List<Client> listeClientDuConseiler = new ArrayList<Client>();
 	private Client client;
+	
+	private Client asou=new Client();
+	private SimulationController simuControl;
 
 	private String nom;
 	private String prenom;
@@ -85,7 +88,7 @@ public class ClientController {
 
 
 	public String RedirectionVirement() {
-
+		
 		System.out.println("redirection virement");
 		FacesContext context = FacesContext.getCurrentInstance();
 		NavigationHandler navigationHandler = context.getApplication()
@@ -94,8 +97,10 @@ public class ClientController {
 		return "virement";
 	}
 
-	public String Redirection() {
-
+	public String Redirection( int id) {
+		asou=serviceClient.getClientById(id);
+		System.out.println(asou.getNom());
+		//simuControl.setClientSimu(asou);
 		System.out.println("redirection simulation");
 		FacesContext context = FacesContext.getCurrentInstance();
 		NavigationHandler navigationHandler = context.getApplication()
@@ -341,6 +346,23 @@ public class ClientController {
 
 	public void setCbActive(boolean cbActive) {
 		this.cbActive = cbActive;
+	}
+
+	
+	public Client getAsou() {
+		return asou;
+	}
+
+	public void setAsou(Client asou) {
+		this.asou = asou;
+	}
+
+	public Integer getIdASupprimer() {
+		return idASupprimer;
+	}
+
+	public void setIdASupprimer(Integer idASupprimer) {
+		this.idASupprimer = idASupprimer;
 	}
 
 	public void addClient() throws ParseException {

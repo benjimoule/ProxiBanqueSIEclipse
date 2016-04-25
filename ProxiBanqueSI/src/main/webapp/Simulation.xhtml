@@ -12,8 +12,9 @@
 </h:head>
 <h:body>
 
-
+<h2>Votre Simulation</h2>
 <h:form>
+<h:outputText value="Choisissez votre projet"/>
 <p:selectOneMenu id="taux" value="#{mbSimulation.tauxInteret}" style="width:125px">
 
             <f:selectItem itemLabel="Choisissez votre projet" itemValue="" noSelectionOption="true"  />
@@ -24,7 +25,7 @@
             <f:ajax event="change"  update="taux"/>
             <!--<f:selectItems value="#{mbSimulation.tauxInterets}" />-->
         </p:selectOneMenu>
-
+<br/>
 <h:outputText value="Montant"/>
 <br/>
 	<p:inputText id="montant" value="#{mbSimulation.capital}">
@@ -42,10 +43,15 @@
 	<p:ajax event="change" update="duree" />
 	</p:inputText>
 	<br/>
-	<h:button  value="simuler" onclick="#{mbSimulation.simulationDeCredit()}"/>
+	<p:button  value="simuler" onclick="#{mbSimulation.simulationDeCredit()}"/>
 </h:form>
 
+<h:form>
  <p:dataTable var="simulation" value="#{mbSimulation.listeDesSimulation}">
+ 			<p:column headerText="Capital Emprunté">
+		
+					<h:outputText value="#{simulation.id}"/>		
+			</p:column>
 			<p:column headerText="Capital Emprunté">
 		
 					<h:outputText value="#{simulation.capital}"/>		
@@ -66,6 +72,13 @@
 			<h:outputText value="#{simulation.coutDuCredit}"/>
 		</p:column>	
 		</p:dataTable>
+		<h:outputText value="Entrez l'id de la simulation que vous voulez valider"/>
+	<p:inputText  id="simuChoix" value="#{mbSimulation.idSimulationChoisi}">
+	<p:ajax event="change" update="simuChoix" />
+	</p:inputText>
+	<br/>
+	<p:button  value="sChoisir ce credit" onclick="#{mbSimulation.SoumettreLeCredit(mbClient.asou)}"/>
+</h:form>
 	
 </h:body>
 </html>

@@ -1,6 +1,7 @@
 package com.adaming.entities;
 
 public class Simulation {
+	private int id;
 	private double capital  ;
 	private double tauxInteret  ;
 	private double duree ;
@@ -64,6 +65,12 @@ public class Simulation {
 		this.mensualite = mensualite;
 		this.nombreDePaiements = nombreDePaiements;
 		this.coutDuCredit = coutDuCredit;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	

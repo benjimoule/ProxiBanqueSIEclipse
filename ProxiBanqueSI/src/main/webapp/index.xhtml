@@ -41,7 +41,7 @@
 		</p:column>
 			<p:column headerText="Simulation de credit">
 				<p:commandLink id="simulation"
-					actionListener="#{mbClient.Redirection()}">
+					actionListener="#{mbClient.Redirection(liste.id)}">
 					<h:outputText
 						value="effectuer une simulation pour Mr #{liste.nom} #{liste.prenom}" />
 

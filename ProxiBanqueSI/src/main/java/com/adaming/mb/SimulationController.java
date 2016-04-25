@@ -2,6 +2,7 @@ package com.adaming.mb;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -17,6 +18,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Controller;
 
+import com.adaming.entities.Client;
+import com.adaming.entities.Conseiller;
 import com.adaming.entities.Simulation;
 
 
@@ -32,6 +35,9 @@ public class SimulationController {
 	private double nombreDePaiements=12.0;
 	private double coutDuCredit;
 	private List<Simulation> listeDesSimulation= new ArrayList<>();
+	private Simulation simulationChoisi=new Simulation();
+	private int idSimulationChoisi=0;
+	private Client clientSimu =new Client();
 	
 	Map<String, Double> tauxInterets;
 	@PostConstruct
@@ -46,11 +52,9 @@ public class SimulationController {
 
 	public void simulationDeCredit() {
 		
-		FacesMessage msg;
-        
-        msg = new FacesMessage("Selected"+ tauxInteret );
+	
     
-    FacesContext.getCurrentInstance().addMessage(null, msg); 
+   
 		System.out.println("-----simulation de credit----");
 		System.out.println("tauxInteret");
 		System.out.println(tauxInteret);
@@ -78,8 +82,32 @@ public class SimulationController {
 			listeDesSimulation.add(simulationCourante);
 			System.out.println("nombre de simulation effectué");
 			System.out.println(listeDesSimulation.size());
+			simulationCourante.setId(listeDesSimulation.size());
 		}
 	}
+	
+	public void SoumettreLeCredit(Client client){
+		if (idSimulationChoisi==0) {
+			System.out.println("soumission a vide");
+		}
+		else{
+		//Choix simu
+			System.out.println("idSimulationChoisi");
+			System.out.println(idSimulationChoisi);
+		for (Iterator<Simulation> i = listeDesSimulation.iterator(); i.hasNext();) {
+            Simulation item = i.next();          
+            if (item.getId()==idSimulationChoisi) {
+            	simulationChoisi=item;               
+            }
+		
+	}
+		System.out.println("ClientChoisi");
+		System.out.println(client.getNom());
+	float presolde=client.getCc().getSolde();
+	float predecouvert=client.getCc().getDecouvert();
+	client.getCc().setSolde(presolde+(float)simulationChoisi.getCapital());
+	client.getCc().setDecouvert(predecouvert-(float)simulationChoisi.getCapital());
+	}}
 
 	public SimulationController() {
 		super();
@@ -156,6 +184,39 @@ public class SimulationController {
 	 public void displayLocation() {
 	         
 	    }
+
+
+	public Simulation getSimulationChoisi() {
+		return simulationChoisi;
+	}
+
+
+	public void setSimulationChoisi(Simulation simulationChoisi) {
+		this.simulationChoisi = simulationChoisi;
+	}
+
+
+	public int getIdSimulationChoisi() {
+		return idSimulationChoisi;
+	}
+
+
+	public void setIdSimulationChoisi(int idSimulationChoisi) {
+		this.idSimulationChoisi = idSimulationChoisi;
+	}
+
+
+	public Client getClientSimu() {
+		return clientSimu;
+	}
+
+
+	public void setClientSimu(Client clientSimu) {
+		this.clientSimu = clientSimu;
+	}
+
+
+	
 
 
 }

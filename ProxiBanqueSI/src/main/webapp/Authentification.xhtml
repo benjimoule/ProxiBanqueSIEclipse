@@ -27,7 +27,7 @@
 <p:inputText id="prenom" value="#{mbConseiller.conseillerauthentification.prenom}" required="true" >
 <!-- <p:ajax event="change" update="prenom" /> -->
 </p:inputText>
-<p:commandButton type="submit" value="S' Authentifier" onclick="#{mbConseiller.authentifier()}" >
+<p:commandButton type="submit" value="S' Authentifier" onclick="#{mbConseiller.authentifier()}" update="@all" >
 
 </p:commandButton>
 
