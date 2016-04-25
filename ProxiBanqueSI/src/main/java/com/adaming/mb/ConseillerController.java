@@ -7,13 +7,16 @@ import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.NavigationHandler;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 //import javax.faces.event.ValueChangeEvent;
 
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
 
 
 
@@ -75,9 +78,9 @@ public class ConseillerController {
 		for (Iterator<Client> it = listeDeTousLesClients.iterator(); it.hasNext();) {
             Client item = it.next();
             if (item.getConseiller().getId()==conseillerCourant.getId() ) {
-//            	System.out.println("avant l'add");
+           	System.out.println("avant l'add");
             	listeClientsDuConseilertemporaire.add(item);
-//            	System.out.println("apres l'add");
+           	System.out.println("apres l'add");
                 
             }
         }
@@ -95,7 +98,7 @@ public class ConseillerController {
 	    NavigationHandler navigationHandler = context.getApplication().getNavigationHandler();
 	    navigationHandler.handleNavigation(context, null, "success");
 	   
-				}
+		}		
 		FacesContext context = FacesContext.getCurrentInstance();
 	    NavigationHandler navigationHandler = context.getApplication().getNavigationHandler();
 	    navigationHandler.handleNavigation(context, null, "success");

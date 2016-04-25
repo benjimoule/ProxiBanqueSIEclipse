@@ -7,23 +7,27 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
+<title>Authentification test</title>
 </h:head>
 <h:body>
-<h:form>
+	<h1>Bienvenue sur ProxiBanque</h1>
+<h:form onsubmit="#{mbConseiller.authentifier()}">
 
 
 <h:outputText value="Nom"/>
+<br/>
 	<p:inputText id="nom" value="#{mbConseiller.conseillerauthentification.nom}">
-	
+	<p:ajax event="change" update="nom" />
 	</p:inputText>
 	<br/>
 	<h:outputText value="Prenom"/>
 	<br/>
 	<p:inputText  id="prenom" value="#{mbConseiller.conseillerauthentification.prenom}">
-	
+	<p:ajax event="change" update="prenom" />
 	</p:inputText>
 	
-	<h:button  value="authentification" onclick="#{mbConseiller.authentifier()}"/>
+	<br/>
+	<p:button  value="authentification" onclick="#{mbConseiller.authentifier()}"/>
 </h:form>
 </h:body>
 </html>

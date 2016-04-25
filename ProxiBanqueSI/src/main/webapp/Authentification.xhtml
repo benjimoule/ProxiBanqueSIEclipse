@@ -1,6 +1,8 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    
+
+
 
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -17,14 +19,14 @@
 <h1>Bienvenue sur ProxiBanque</h1>
 <h:form  >
 <h:outputLabel>Nom: </h:outputLabel>
-<h:inputText id="nom" value="#{mbConseiller.conseillerauthentification.nom}" required="true" >
-   <p:ajax event="change" update="nom" /> 
-</h:inputText>
+<p:inputText id="nom" value="#{mbConseiller.conseillerauthentification.nom}" required="true" >
+   <!--  <p:ajax event="change" update="nom" /> -->
+</p:inputText>
 
 <h:outputLabel>Prenom: </h:outputLabel>
-<h:inputText id="prenom" value="#{mbConseiller.conseillerauthentification.prenom}" required="true" >
- <p:ajax event="change" update="prenom" /> 
-</h:inputText>
+<p:inputText id="prenom" value="#{mbConseiller.conseillerauthentification.prenom}" required="true" >
+<!-- <p:ajax event="change" update="prenom" /> -->
+</p:inputText>
 <p:commandButton type="submit" value="S' Authentifier" onclick="#{mbConseiller.authentifier()}" >
 
 </p:commandButton>
