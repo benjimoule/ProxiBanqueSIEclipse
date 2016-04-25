@@ -31,11 +31,11 @@ public class DaoClientTest extends TestCase {
 	
 	
 
-//	@Test
-//	public void testGetAllClients(){
-//		List<Client> liste = daoClients.getAllClients();
-//		assertEquals(10, liste.size());
-//	}
+	@Test
+	public void testGetAllClients(){
+		List<Client> liste = daoClients.getAllClients();
+		assertEquals(3, liste.size());
+	}
 	
 //	@Test
 //	public void testGetClientById(){
@@ -62,16 +62,16 @@ public class DaoClientTest extends TestCase {
 //		
 //		assertEquals(truc.getNom(), "updateApres");
 //	}
-
-	@Test
-	public void testdeleteClient(){
-		
-		List<Client> liste = daoClients.getAllClients();
-		int taille =liste.size();
-		
-		daoClients.deleteClient(13);
-		assertEquals(12, taille-1);
-	}
+//
+//	@Test
+//	public void testdeleteClient(){
+//		
+//		List<Client> liste = daoClients.getAllClients();
+//		int taille =liste.size();
+//		
+//		daoClients.deleteClient(13);
+//		assertEquals(12, taille-1);
+//	}
 
 
 	
