@@ -61,88 +61,101 @@
 	</h:form>
 
 	<h:form>
+	<p:panel header="Ajouter Client">
+        <p:messages autoUpdate="true"/>
+	 <h:panelGrid id="grid" columns="2" cellpadding="5">
 		<h:outputText value="Client"/>
-		<br />
+		<br/>
 		<h:outputText value="Nom"/>
-		<h:inputText value="#{mbClient.nom}" />
-		<br />
+		<p:inputText value="#{mbClient.nom}" />
+		
 		<h:outputText value="Prenom"/>
-		<h:inputText value="#{mbClient.prenom}" />
-		<br />
+		<p:inputText value="#{mbClient.prenom}" />
+		
 		<h:outputText value="adresse"/>
-		<h:inputText value="#{mbClient.adresse}" />
-		<br />
+		<p:inputText value="#{mbClient.adresse}" />
+		
 		<h:outputText value="code postal"/>
-		<h:inputText value="#{mbClient.codePostal}" />
-		<br />
+		<p:inputText value="#{mbClient.codePostal}" />
+		
 		<h:outputText value="ville"/>
-		<h:inputText value="#{mbClient.ville}" />
-		<br />
+		<p:inputText value="#{mbClient.ville}" />
+		
 		<h:outputText value="telephone"/>
-		<h:inputText value="#{mbClient.telephone}" />
-		<br />
-		<br />
+		<p:inputText value="#{mbClient.telephone}" />
+		<br/>
 		<h:outputText value="Carte bancaire"/>
-		<br />
+		
 		<h:outputText value="Numero"/>
-		<h:inputText value="#{mbClient.cbNumero}" />
-		<br />
+		<p:inputText value="#{mbClient.cbNumero}" />
+		
 		<h:outputText value="Date de fin de validite"/>
-		<h:inputText value="#{mbClient.cbDateValidite}" />
-		<br />
+		<p:inputText value="#{mbClient.cbDateValidite}" />
+		
 		<h:outputText value="Pictogramme"/>
-		<h:inputText value="#{mbClient.cbPictogramme}" />
-		<br />
+		<p:inputText value="#{mbClient.cbPictogramme}" />
+		
 		<h:outputText value="Active?"/>
-		<h:inputText value="#{mbClient.cbActive}" />
-		<br />
-		<br />
+		<p:inputText value="#{mbClient.cbActive}" />
+		<br/>
 		<h:outputText value="Compte courant"/>
-		<br />
+		
 		<h:outputText value="Date d'ouverture"/>
-		<h:inputText value="#{mbClient.ccDateOuverture}" />
-		<br />
+		<p:inputText value="#{mbClient.ccDateOuverture}" />
+		
 		<h:outputText value="Solde"/>
-		<h:inputText value="#{mbClient.ccSolde}" />
-		<br />
+		<p:inputText value="#{mbClient.ccSolde}" />
+		
 		<h:outputText value="Decouvert autorise"/>
-		<h:inputText value="#{mbClient.ccDecouvert}" />
-		<br />
-		<br />
+		<p:inputText value="#{mbClient.ccDecouvert}" />
+		<br/>
 		<h:outputText value="Compte epargne"/>
-		<br />
+		
 		<h:outputText value="Date d'ouverture"/>
-		<h:inputText value="#{mbClient.ceDateOuverture}" />
-		<br />
+		<p:inputText value="#{mbClient.ceDateOuverture}" />
+	
 		<h:outputText value="Solde"/>
-		<h:inputText value="#{mbClient.ceSolde}" />
-		<br />
+		<p:inputText value="#{mbClient.ceSolde}" />
+		
 		<h:outputText value="Taux"/>
-		<h:inputText value="#{mbClient.ceTaux}" />
-		<br />
+		<p:inputText value="#{mbClient.ceTaux}" />
+		
 		<h:commandButton value="ajouter" action="#{mbClient.addClient(mbConseiller.conseillerCourant)}" />
 		<h:commandButton value="modifier" action="#{mbClient.updateClient()}" />
-
+		</h:panelGrid>
+</p:panel>
 	</h:form>
 
-	<h:form>
-		<h:outputText value="Nom"/>
+	<h:form  >
+	<p:panel header="Auditer Les Comptes">
+        <p:messages autoUpdate="true"/>
+	 <h:panelGrid id="grid" columns="2" cellpadding="5">
+		<!-- <h:outputText value="Nom"/>
 		<h:inputText value="#{mbClient.client1.nom}" />
-		<br />
+		
 		<h:outputText value="prenom"/>
 		<h:inputText value="#{mbClient.client1.prenom}" />
-		<br />
+		
 		<h:outputText value="telephone"/>
-		<h:inputText value="#{mbClient.client1.telephone}" />
-		<br />
-
+		<h:inputText value="#{mbClient.client1.telephone}" /> -->
+		
+	<p:commandButton value="auditer" action="#{mbClient.auditer()}" onclick="PF('auditTable').show()" >
+	  <p:ajax partialSubmit="true"  event="click" update="@all"/>
+	</p:commandButton>	
+</h:panelGrid>
+</p:panel>
 	</h:form>
-
+<!--  -->
 	<h:form>
-		<h:commandButton value="auditer" action="#{mbClient.auditer()}" onclick="PF('auditTable').show()"/>
-		<p:dialog widgetVar="auditTable" modal="true">
-			<p:dataTable value="#{mbClient.auditList}"
+	
+		
+		<p:dialog   widgetVar="auditTable" modal="true" closeOnEscape="true" closable="true">
+		<p:messages for ="Message1" showDetail="true" autoUpdate="true" closable="true" />
+		<p:messages for ="Message2" showDetail="true" autoUpdate="true" closable="true" />
+		<p:messages for ="Message2" autoUpdate="true"/>
+			<p:dataTable  value="#{mbClient.auditList}"
 				var="liste">
+				<p:messages autoUpdate="true"/>
 				<p:column headerText="Id">			
 						<h:outputText value="#{liste.id}" />
 				</p:column>

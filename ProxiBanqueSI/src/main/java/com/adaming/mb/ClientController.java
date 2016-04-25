@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.persistence.Column;
@@ -47,19 +48,18 @@ public class ClientController {
 
 	@Autowired
 	private IServiceCompteEpargne serviceCE;
-	
+
 	@Autowired
 	private IServiceCarteBancaire serviceCB;
-	
-	
-	//private ConseillerController conseilContr;
+
+	// private ConseillerController conseilContr;
 
 	private List<Client> list = new ArrayList<Client>();
 	private List<Client> auditList;
 	private List<Client> listeClientDuConseiler = new ArrayList<Client>();
 	private Client client;
-	
-	private Client asou=new Client();
+
+	private Client asou = new Client();
 	private SimulationController simuControl;
 
 	private String nom;
@@ -70,25 +70,25 @@ public class ClientController {
 	private String telephone;
 	private Client client1;
 	private Integer idASupprimer;
-	
-	private String ccDateOuverture;
-    private float ccSolde;
-    private float ccDecouvert;
-    
-    private String ceDateOuverture;
-    private float ceSolde;
-    private float ceTaux;
-    
-    private int cbNumero;
-    private String cbDateValidite;
-    private int cbPictogramme;
-    private boolean cbActive;
-    
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
 
+	private String ccDateOuverture;
+	private float ccSolde;
+	private float ccDecouvert;
+
+	private String ceDateOuverture;
+	private float ceSolde;
+	private float ceTaux;
+
+	private int cbNumero;
+	private String cbDateValidite;
+	private int cbPictogramme;
+	private boolean cbActive;
+	int nbAudit = 0;
+
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
 
 	public String RedirectionVirement() {
-		
+
 		System.out.println("redirection virement");
 		FacesContext context = FacesContext.getCurrentInstance();
 		NavigationHandler navigationHandler = context.getApplication()
@@ -97,10 +97,10 @@ public class ClientController {
 		return "virement";
 	}
 
-	public String Redirection( int id) {
-		asou=serviceClient.getClientById(id);
+	public String Redirection(int id) {
+		asou = serviceClient.getClientById(id);
 		System.out.println(asou.getNom());
-		//simuControl.setClientSimu(asou);
+		// simuControl.setClientSimu(asou);
 		System.out.println("redirection simulation");
 		FacesContext context = FacesContext.getCurrentInstance();
 		NavigationHandler navigationHandler = context.getApplication()
@@ -255,8 +255,6 @@ public class ClientController {
 	public void setListeClientDuConseiler(List<Client> listeClientDuConseiler) {
 		this.listeClientDuConseiler = listeClientDuConseiler;
 	}
-	
-	
 
 	public List<Client> getAuditList() {
 		return auditList;
@@ -265,8 +263,6 @@ public class ClientController {
 	public void setAuditList(List<Client> auditList) {
 		this.auditList = auditList;
 	}
-	
-	
 
 	public String getCcDateOuverture() {
 		return ccDateOuverture;
@@ -348,7 +344,6 @@ public class ClientController {
 		this.cbActive = cbActive;
 	}
 
-	
 	public Client getAsou() {
 		return asou;
 	}
@@ -366,23 +361,27 @@ public class ClientController {
 	}
 
 	public void addClient(Conseiller conseilCourant) throws ParseException {
+
 		client = new Client(nom, prenom, adresse, codePostal, ville, telephone);
 		client.setConseiller(conseilCourant);
 		serviceClient.addClient(client);
-		
-		CarteBancaire cb = new CarteBancaire(cbNumero, cbDateValidite, cbPictogramme, cbActive);
+
+		CarteBancaire cb = new CarteBancaire(cbNumero, cbDateValidite,
+				cbPictogramme, cbActive);
 		serviceCB.addCarteBancaire(cb);
-		
-		CompteCourant cc = new CompteCourant(sdf.parse(ccDateOuverture), ccSolde, client, ccDecouvert, cb);
+
+		CompteCourant cc = new CompteCourant(sdf.parse(ccDateOuverture),
+				ccSolde, client, ccDecouvert, cb);
 		serviceCC.addCompteCourant(cc);
 		client.setCc(cc);
-		
-		CompteEpargne ce = new CompteEpargne(sdf.parse(ceDateOuverture), ceSolde, client, ceTaux);
+
+		CompteEpargne ce = new CompteEpargne(sdf.parse(ceDateOuverture),
+				ceSolde, client, ceTaux);
 		serviceCE.addCompteEpargne(ce);
 		client.setCe(ce);
-		
+
 		serviceClient.updateClient(client);
-		
+
 	}
 
 	public void choisirIdASupprimer(int idCourant) {
@@ -420,16 +419,51 @@ public class ClientController {
 	public void auditer() {
 		List<Client> allClients = getList();
 		auditList = new ArrayList<>();
+		
+		System.out.println("allClients.size()");
+		System.out.println(allClients.size());
+		FacesMessage msg;
+		FacesMessage msg2;
+		System.out.println("--------Audit---------------");
 
+		nbAudit++;
 		for (Iterator<Client> it = allClients.iterator(); it.hasNext();) {
 			Client item = it.next();
-			if ((item.getCc().getSolde() < -5000)
-					|| (item.getCe().getSolde() < -5000)) {
+
+			System.out.println("item.getCc().getDecouvert()");
+			System.out.println(item.getCc().getDecouvert());
+			System.out.println("item.getCe().getSolde()");
+			System.out.println(item.getCe().getSolde());
+
+			if ((item.getCc().getDecouvert() < -5000.0)
+					|| (item.getCe().getSolde() < -5000.0)) {
 				auditList.add(item);
+				System.out.println("auditList.size()");
+				System.out.println(auditList.size());
 
 			}
 		}
+		System.out.println("nbAudit");
+		System.out.println(nbAudit);
+		System.out.println("le test message");
+		System.out.println(auditList.size() == 0 && nbAudit != 0);
+		if (auditList.size() == 0 && nbAudit != 0) {
+			msg = new FacesMessage(" Pas de clients inquiétant!\n"
+					+ " on est une banque de winner!");
+			FacesContext.getCurrentInstance().addMessage("Message1", msg);
+		}
+		if (auditList.size() != 0 && nbAudit == 1) {
+			msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Attention! Refaire un audit il y a des doutes"," Recliquez");
+			FacesContext.getCurrentInstance().addMessage("Message2", msg);
+		}
+		if (auditList.size() != 0 && nbAudit != 1) {
+			msg = new FacesMessage(" Il y a des clients qui n'ont plus d'argent");
+			FacesContext.getCurrentInstance().addMessage("Message3", msg);
+			
+		}
 
-		
+		System.out.println("auditList.size() final ");
+		System.out.println(auditList.size());
 	}
+
 }

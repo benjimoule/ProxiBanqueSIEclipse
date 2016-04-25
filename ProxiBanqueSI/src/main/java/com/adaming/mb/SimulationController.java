@@ -2,6 +2,7 @@ package com.adaming.mb;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -88,8 +89,13 @@ public class SimulationController {
 			System.out.println("nombre de simulation effectué");
 			System.out.println(listeDesSimulation.size());
 			simulationCourante.setId(listeDesSimulation.size());
+			//supprimer les clients en double
+			List<Simulation> newList = new ArrayList<Simulation>(new HashSet<Simulation>(listeDesSimulation));
+			listeDesSimulation=newList;
 		}
 	}
+	
+	
 	
 	public void SoumettreLeCredit(Client client){
 		if (idSimulationChoisi==0) {

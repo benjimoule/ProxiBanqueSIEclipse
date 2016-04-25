@@ -72,6 +72,54 @@ public class Simulation {
 	public void setId(int id) {
 		this.id = id;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(capital);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(coutDuCredit);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(duree);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(mensualite);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(nombreDePaiements);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(tauxInteret);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Simulation other = (Simulation) obj;
+		if (Double.doubleToLongBits(capital) != Double
+				.doubleToLongBits(other.capital))
+			return false;
+		if (Double.doubleToLongBits(coutDuCredit) != Double
+				.doubleToLongBits(other.coutDuCredit))
+			return false;
+		if (Double.doubleToLongBits(duree) != Double
+				.doubleToLongBits(other.duree))
+			return false;
+		if (Double.doubleToLongBits(mensualite) != Double
+				.doubleToLongBits(other.mensualite))
+			return false;
+		if (Double.doubleToLongBits(nombreDePaiements) != Double
+				.doubleToLongBits(other.nombreDePaiements))
+			return false;
+		if (Double.doubleToLongBits(tauxInteret) != Double
+				.doubleToLongBits(other.tauxInteret))
+			return false;
+		return true;
+	}
 	
 	
 }
