@@ -98,29 +98,31 @@
 	</h:form>
 
 	<h:form>
-		<h:commandButton value="auditer" action="#{mbClient.auditer()" />
-		<p:dataTable value="#{mbClient.auditList}"
-			var="liste">
-			<p:column headerText="Id">			
-					<h:outputText value="#{liste.id}" />
+		<h:commandButton value="auditer" action="#{mbClient.auditer()}" onclick="PF('auditTable').show()"/>
+		<p:dialog widgetVar="auditTable" modal="true">
+			<p:dataTable value="#{mbClient.auditList}"
+				var="liste">
+				<p:column headerText="Id">			
+						<h:outputText value="#{liste.id}" />
+				</p:column>
+	
+				<p:column headerText="Nom">
+				#{liste.nom}
 			</p:column>
-
-			<p:column headerText="Nom">
-			#{liste.nom}
-		</p:column>
-
-			<p:column headerText="Prenom">
-			#{liste.prenom}
-		</p:column>
-
-			<p:column headerText="Telephone">
-			#{liste.telephone}
-		</p:column>
-			<p:column id="riche" headerText="ClientVIP">
-			#{mbClient.ClientEstRiche(liste.id)}
-			
-		</p:column>
-		</p:dataTable>
+	
+				<p:column headerText="Prenom">
+				#{liste.prenom}
+			</p:column>
+	
+				<p:column headerText="Telephone">
+				#{liste.telephone}
+			</p:column>
+				<p:column id="riche" headerText="ClientVIP">
+				#{mbClient.ClientEstRiche(liste.id)}
+				
+			</p:column>
+			</p:dataTable>
+		</p:dialog>
 	</h:form>
 
 
