@@ -34,6 +34,10 @@
     <from-outcome>simulation</from-outcome>    	
         <to-view-id>/Simulation.xhtml</to-view-id>        
     </navigation-case> 
+    <navigation-case>
+    <from-outcome>virement</from-outcome>    	
+        <to-view-id>/Virement.xhtml</to-view-id>        
+    </navigation-case> 
 </navigation-rule>
 
 </faces-config>

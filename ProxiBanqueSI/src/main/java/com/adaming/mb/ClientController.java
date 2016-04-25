@@ -53,6 +53,15 @@ public class ClientController {
 	private Client client1;
 	private Integer idASupprimer;
 	
+	public String RedirectionVirement(){
+		
+		System.out.println("redirection virement");
+		FacesContext context = FacesContext.getCurrentInstance();
+	    NavigationHandler navigationHandler = context.getApplication().getNavigationHandler();
+	    navigationHandler.handleNavigation(context, null, "virement");
+		return "virement";
+	}
+	
 	public String Redirection(){
 		
 		System.out.println("redirection simulation");

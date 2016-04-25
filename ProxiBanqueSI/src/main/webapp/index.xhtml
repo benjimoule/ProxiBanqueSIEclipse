@@ -42,7 +42,13 @@
 	<p:commandLink id="simulation" actionListener="#{mbClient.Redirection()}">
 	<h:outputText value="effectuer une simulation pour Mr #{liste.nom} #{liste.prenom}"  />
 			
-	</p:commandLink>
+	</p:commandLink>	
+		</p:column>
+		<p:column headerText="Virement">
+	<p:commandLink id="virement" actionListener="#{mbClient.RedirectionVirement()}">
+	<h:outputText value="effectuer un virement pour Mr #{liste.nom} #{liste.prenom}"  />
+			
+	</p:commandLink>	
 		</p:column>
 		
 		</p:dataTable>

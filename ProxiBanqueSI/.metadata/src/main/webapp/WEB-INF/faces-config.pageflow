@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14612277284440" configfile="/ProxiBanqueSI/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="*" id="pf14614306231264" outlinks="pf14614306231265 pf14614306231266 pf14614306231267" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" id="pf14614306231264" outlinks="pf14614306231265 pf14614306231266 pf14614306231267 pf14615713392990" path="*"/>
   <nodes xsi:type="pageflow:PFPage" name="index.xhtml" id="pf14614306231268" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf14614306231265" path="/index.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="Authentification.xhtml" id="pf14614306231269" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf14614306231266" path="/Authentification.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="Simulation.xhtml" id="pf146143062312610" referenceLink="//@navigationRule.0/@navigationCase.2/@toViewId|" inlinks="pf14614306231267" path="/Simulation.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="Simulation.xhtml" id="pf146143062312610" referenceLink="//@navigationRule.0/@navigationCase.3/@toViewId|" inlinks="pf14614306231267" path="/Simulation.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="Virement.xhtml" id="pf14615713392991" referenceLink="//@navigationRule.0/@navigationCase.3/@toViewId|" inlinks="pf14615713392990" path="/Virement.xhtml"/>
   <links id="pf14614306231265" target="pf14614306231268" source="pf14614306231264" outcome="success"/>
   <links id="pf14614306231266" target="pf14614306231269" source="pf14614306231264" outcome="failure"/>
   <links id="pf14614306231267" target="pf146143062312610" source="pf14614306231264" outcome="simulation"/>
+  <links id="pf14615713392990" target="pf14615713392991" source="pf14614306231264" outcome="virement"/>
 </pageflow:Pageflow>
