@@ -16,9 +16,12 @@ import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.adaming.dao.IDaoCompteCourant;
 import com.adaming.entities.Client;
+import com.adaming.entities.CompteCourant;
 import com.adaming.entities.Conseiller;
 import com.adaming.entities.Simulation;
 
@@ -38,6 +41,8 @@ public class SimulationController {
 	private Simulation simulationChoisi=new Simulation();
 	private int idSimulationChoisi=0;
 	private Client clientSimu =new Client();
+	@Autowired
+	private IDaoCompteCourant daoCC;
 	
 	Map<String, Double> tauxInterets;
 	@PostConstruct
@@ -105,8 +110,12 @@ public class SimulationController {
 		System.out.println(client.getNom());
 	float presolde=client.getCc().getSolde();
 	float predecouvert=client.getCc().getDecouvert();
-	client.getCc().setSolde(presolde+(float)simulationChoisi.getCapital());
-	client.getCc().setDecouvert(predecouvert-(float)simulationChoisi.getCapital());
+	CompteCourant compteModifier=client.getCc();
+CompteCourant compteApres=new CompteCourant(compteModifier.getId(), compteModifier.getDateOuverture(), presolde+(float)simulationChoisi.getCapital(), 
+		compteModifier.getClient(), predecouvert-(float)simulationChoisi.getCapital(), compteModifier.getCarte());
+	daoCC.updateCompteCourant(compteApres);
+//	client.getCc().setSolde(presolde+(float)simulationChoisi.getCapital());
+//	client.getCc().setDecouvert(predecouvert-(float)simulationChoisi.getCapital());
 	}}
 
 	public SimulationController() {
