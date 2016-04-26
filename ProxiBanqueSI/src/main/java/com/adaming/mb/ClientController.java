@@ -11,6 +11,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.Validator;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
@@ -465,5 +466,7 @@ public class ClientController {
 		System.out.println("auditList.size() final ");
 		System.out.println(auditList.size());
 	}
+
+	
 
 }
