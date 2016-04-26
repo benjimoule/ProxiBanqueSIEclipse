@@ -27,6 +27,10 @@
         <to-view-id>/index.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
+    <from-outcome>retour</from-outcome>    	
+        <to-view-id>/index.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
      <from-outcome>failure</from-outcome>    	
         <to-view-id>/Authentification.xhtml</to-view-id>
     </navigation-case>

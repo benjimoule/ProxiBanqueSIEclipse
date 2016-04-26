@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +31,6 @@ import com.adaming.entities.Simulation;
 
 @Controller(value = "mbSimulation")
 @SessionScoped
-
 public class SimulationController {
 	private double capital = 0;
 	private double tauxInteret = 4.0/100.0;
@@ -123,6 +123,16 @@ CompteCourant compteApres=new CompteCourant(compteModifier.getId(), compteModifi
 //	client.getCc().setSolde(presolde+(float)simulationChoisi.getCapital());
 //	client.getCc().setDecouvert(predecouvert-(float)simulationChoisi.getCapital());
 	}}
+	
+	public String retourIndex() {
+
+		System.out.println("retour index");
+		FacesContext context = FacesContext.getCurrentInstance();
+		NavigationHandler navigationHandler = context.getApplication()
+				.getNavigationHandler();
+		navigationHandler.handleNavigation(context, null, "retour");
+		return "retour";
+	}
 
 	public SimulationController() {
 		super();

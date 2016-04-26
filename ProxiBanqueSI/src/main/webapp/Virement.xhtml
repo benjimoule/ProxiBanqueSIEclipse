@@ -41,8 +41,8 @@
 		</p:column>
 		</p:dataTable>
 		
-		<h:commandButton value="valider emetteur" action="#{mbCompte.validerEmetteur()}" />
-		<h:commandButton value="annuler emetteur" action="#{mbCompte.annulerEmetteur()}" />
+		<p:commandButton value="valider emetteur" action="#{mbCompte.validerEmetteur()}" />
+		<p:commandButton value="annuler emetteur" action="#{mbCompte.annulerEmetteur()}" />
 	</h:form>
 	<h:form>
 		<h4>Compte emetteur</h4>
@@ -66,9 +66,10 @@
 		<br />
 		
 		<h:outputText>Montant du virement : </h:outputText>
-		<h:inputText value="#{mbCompte.montant}" />
+		<p:inputText value="#{mbCompte.montant}" />
 		
-		<h:commandButton value="effectuer le virement" action="#{mbCompte.effectuerVirement()}" />
+		<p:commandButton value="effectuer le virement" action="#{mbCompte.effectuerVirement()}" />
+		<p:commandButton value="retour index" onclick="#{mbSimulation.retourIndex()}"/>
 	</h:form>
 </h:body>
 </html>
