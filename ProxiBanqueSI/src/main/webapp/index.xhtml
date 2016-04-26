@@ -67,44 +67,67 @@
 		<h:outputText value="Client"/>
 		<br/>
 		<h:outputText value="Nom"/>
-		<p:inputText value="#{mbClient.nom}" />
-		
+		<p:inputText value="#{mbClient.nom}" >
+		<f:validateLength minimum="2"  />
+		</p:inputText>
 		<h:outputText value="Prenom"/>
-		<p:inputText value="#{mbClient.prenom}" />
+		<p:inputText value="#{mbClient.prenom}" >
+		<f:validateLength minimum="2"  />
+		</p:inputText>
 		
 		<h:outputText value="adresse"/>
-		<p:inputText value="#{mbClient.adresse}" />
+		<p:inputText value="#{mbClient.adresse}" >
+		<f:validateLength minimum="2"/>
+		</p:inputText>
 		
 		<h:outputText value="code postal"/>
-		<p:inputText value="#{mbClient.codePostal}" />
+		<p:inputText value="#{mbClient.codePostal}" >
+		<f:validateLength minimum="5" maximum="5"/>
+		</p:inputText>
 		
 		<h:outputText value="ville"/>
-		<p:inputText value="#{mbClient.ville}" />
+		<p:inputText value="#{mbClient.ville}" >
+		<f:validateLength minimum="2"/>
+		</p:inputText>
 		
 		<h:outputText value="telephone"/>
-		<p:inputText value="#{mbClient.telephone}" />
+		<p:inputText value="#{mbClient.telephone}" >
+		<f:validateLength minimum="2"/>
+		</p:inputText>
 		<br/>
 		<h:outputText value="Carte bancaire"/>
 		
 		<h:outputText value="Numero"/>
-		<p:inputText value="#{mbClient.cbNumero}" />
+		<p:inputText value="#{mbClient.cbNumero}" >
+		<f:validateLength minimum="1"/>
+		</p:inputText>
 		
 		<h:outputText value="Date de fin de validite"/>
-		<p:inputText value="#{mbClient.cbDateValidite}" />
+		<p:inputText value="#{mbClient.cbDateValidite}"  converterMessage="La date doit etre au format yyyy-MM-dd.">
+		<f:convertDateTime pattern="yyyy-MM-dd"/>
+		</p:inputText>
 		
 		<h:outputText value="Pictogramme"/>
-		<p:inputText value="#{mbClient.cbPictogramme}" />
+		<p:inputText value="#{mbClient.cbPictogramme}" >
+		<f:validateLength minimum="2"/>
+		</p:inputText>
 		
 		<h:outputText value="Active?"/>
-		<p:inputText value="#{mbClient.cbActive}" />
+		<p:inputText value="#{mbClient.cbActive}" >
+		<f:validateLength minimum="1" maximum="1"/>
+		</p:inputText>
 		<br/>
 		<h:outputText value="Compte courant"/>
 		
 		<h:outputText value="Date d'ouverture"/>
-		<p:inputText value="#{mbClient.ccDateOuverture}" />
+		<p:inputText value="#{mbClient.ccDateOuverture}" converterMessage="La date doit etre au format yyyy-MM-dd." >
+		<f:convertDateTime pattern="yyyy-MM-dd"/>
+		</p:inputText>
 		
 		<h:outputText value="Solde"/>
-		<p:inputText value="#{mbClient.ccSolde}" />
+		<p:inputText value="#{mbClient.ccSolde}" >
+		<f:validateLength minimum="0"/>
+		</p:inputText>
 		
 		<h:outputText value="Decouvert autorise"/>
 		<p:inputText value="#{mbClient.ccDecouvert}" />
@@ -112,13 +135,17 @@
 		<h:outputText value="Compte epargne"/>
 		
 		<h:outputText value="Date d'ouverture"/>
-		<p:inputText value="#{mbClient.ceDateOuverture}" />
+		<p:inputText value="#{mbClient.ceDateOuverture}"  converterMessage="La date doit etre au format yyyy-MM-dd." >
+		<f:convertDateTime pattern="yyyy-MM-dd"/>
+		</p:inputText>
 	
 		<h:outputText value="Solde"/>
 		<p:inputText value="#{mbClient.ceSolde}" />
 		
 		<h:outputText value="Taux"/>
-		<p:inputText value="#{mbClient.ceTaux}" />
+		<p:inputText value="#{mbClient.ceTaux}" >
+		
+		</p:inputText>
 		
 		<h:commandButton value="ajouter" action="#{mbClient.addClient(mbConseiller.conseillerCourant)}" />
 		<h:commandButton value="modifier" action="#{mbClient.updateClient()}" />
