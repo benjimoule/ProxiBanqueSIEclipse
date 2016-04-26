@@ -103,8 +103,8 @@
 		</p:inputText>
 		
 		<h:outputText value="Date de fin de validite"/>
-		<p:inputText value="#{mbClient.cbDateValidite}"  converterMessage="La date doit etre au format yyyy-MM-dd.">
-		<f:convertDateTime pattern="yyyy-MM-dd"/>
+		<p:inputText value="#{mbClient.cbDateValidite}"  >
+		<f:validateLength minimum="10" maximum="10"/>
 		</p:inputText>
 		
 		<h:outputText value="Pictogramme"/>
